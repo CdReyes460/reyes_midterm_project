@@ -17,7 +17,7 @@ class RoomController extends Controller
 
         return view('dashboard', compact('rooms', 'roomtypes', 'activeRoomTypes'));
     }
-
+ 
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -34,7 +34,7 @@ class RoomController extends Controller
     public function update(Request $request, Room $room)
     {
         $validated = $request->validate([
-            'room_number' => 'required|string|max:255',
+            'room_number' => 'required|string|max:255|unique:rooms,room_number,' . $room->id,
             'status' => 'required|string|max:255',
             'room_type_id' => 'required|exists:room_types,id',
         ]);
